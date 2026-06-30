@@ -13,7 +13,7 @@ one logical change per PR.
 
 ## Checklist
 
-- [ ] I've read the [Contributing guide](../CONTRIBUTING.md)
+- [ ] I've read the [Contributing guide](https://github.com/namoidhq/namoid-examples/blob/main/CONTRIBUTING.md)
 - [ ] The change is covered by tests or a runnable example (where applicable)
 - [ ] Docs / README updated if behavior or usage changed
 - [ ] I agree my contribution is licensed under the repository's MIT license
