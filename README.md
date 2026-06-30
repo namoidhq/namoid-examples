@@ -1,5 +1,7 @@
 # NamoID examples
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 Runnable, copy-pasteable integrations for [NamoID](https://namoid.in) — an
 OAuth 2.1 + OpenID Connect identity provider. Every example does the same thing
 in a different stack: **sign a user in with NamoID, read their profile, sign
@@ -95,3 +97,14 @@ no implicit flow.
 | Refresh tokens | rotate on every use; reuse of an old one revokes the chain |
 
 Full API docs: [docs.namoid.in](https://docs.namoid.in).
+
+## Links
+
+- Website — [namoid.in](https://namoid.in)
+- Docs — [docs.namoid.in](https://docs.namoid.in)
+- Contact — [hello@namoid.in](mailto:hello@namoid.in)
+- Issues — [github.com/namoidhq/namoid-examples/issues](https://github.com/namoidhq/namoid-examples/issues)
+
+## License
+
+[MIT](./LICENSE) © PolyMindsLabs Pvt. Ltd.
