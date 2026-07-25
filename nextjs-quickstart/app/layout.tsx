@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "NamoID Quickstart — Next.js",
-  description: "Minimal example of integrating NamoID OAuth/OIDC into a Next.js app.",
+  description: "Minimal example of integrating NamoID Hosted Auth into a Next.js app.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
