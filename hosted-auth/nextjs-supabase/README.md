@@ -55,3 +55,18 @@ pnpm dev
 Open <http://localhost:3002>, sign in through NamoID, and save a display name.
 The dashboard reads and writes only the row belonging to the validated NamoID
 user.
+
+## Run with Docker
+
+After applying the Supabase schema, copy the repository root `.env.example` to
+`.env`, set the `SUPABASE_*` values, and run:
+
+```bash
+docker compose up --build nextjs-supabase
+```
+
+Open <http://localhost:3002>. Stop the container with:
+
+```bash
+docker compose down
+```

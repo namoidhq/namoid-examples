@@ -43,6 +43,21 @@ Open <http://localhost:3001> and choose **Sign in with NamoID**. The hosted
 page authenticates the user, returns a one-time code, and the server route
 exchanges it using the Auth secret key.
 
+## Run with Docker
+
+Copy the repository root `.env.example` to `.env`, set the `NEXTJS_*` values,
+then run:
+
+```bash
+docker compose up --build nextjs
+```
+
+Open <http://localhost:3001>. Stop the container with:
+
+```bash
+docker compose down
+```
+
 The secret key stays on the server. It selects the application and lets the SDK
 resolve the correct Hosted Auth domain automatically. Do not expose it through
 a `NEXT_PUBLIC_*` variable.

@@ -1,0 +1,44 @@
+name: namoid-examples
+
+services:
+  nextjs:
+    build:
+      context: ./hosted-auth/nextjs
+    environment:
+      HOSTNAME: 0.0.0.0
+      NAMOID_API_BASE_URL: ${NEXTJS_NAMOID_API_BASE_URL:-https://api.namoid.in}
+      NAMOID_AUTH_SECRET_KEY: ${NEXTJS_NAMOID_AUTH_SECRET_KEY:-}
+      NEXT_PUBLIC_APP_URL: ${NEXTJS_APP_URL:-http://localhost:3001}
+      NODE_ENV: production
+      PORT: 3001
+    ports:
+      - "${NEXTJS_HOST_PORT:-3001}:3001"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3001/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  nextjs-supabase:
+    build:
+      context: ./hosted-auth/nextjs-supabase
+    environment:
+      HOSTNAME: 0.0.0.0
+      NAMOID_API_BASE_URL: ${SUPABASE_NEXTJS_NAMOID_API_BASE_URL:-https://api.namoid.in}
+      NAMOID_AUTH_SECRET_KEY: ${SUPABASE_NEXTJS_NAMOID_AUTH_SECRET_KEY:-}
+      NEXT_PUBLIC_APP_URL: ${SUPABASE_NEXTJS_APP_URL:-http://localhost:3002}
+      NODE_ENV: production
+      PORT: 3002
+      SUPABASE_SECRET_KEY: ${SUPABASE_SECRET_KEY:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+    ports:
+      - "${SUPABASE_NEXTJS_HOST_PORT:-3002}:3002"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3002/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped

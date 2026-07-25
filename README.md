@@ -28,6 +28,28 @@ Both examples demonstrate the complete confidential Hosted Auth flow:
 5. Create an HttpOnly application session.
 6. Revoke the NamoID session during sign-out.
 
+## Run with Docker
+
+Each example has a production multi-stage Docker image. Copy the root
+`.env.example` to `.env`, fill in the values for the service you want, then run:
+
+```bash
+# Standalone Next.js
+docker compose up --build nextjs
+
+# Next.js with Supabase
+docker compose up --build nextjs-supabase
+
+# Or run both
+docker compose up --build
+```
+
+The Compose services load secrets only at runtime. Local environment files,
+dependencies, and build outputs are excluded from Docker build contexts.
+Change `NEXTJS_HOST_PORT` or `SUPABASE_NEXTJS_HOST_PORT` in `.env` when a
+default host port is already occupied, and update the matching application URL
+and registered NamoID callback.
+
 ## Integration families
 
 | Family | Purpose | Repository status |
