@@ -1,6 +1,0 @@
-# Compiled binary (built from `go build`)
-/namoid-go-oidc
-/go-oidc
-
-# Local secrets
-.env

@@ -8,10 +8,9 @@
     "start": "next start --port 3001"
   },
   "dependencies": {
-    "@namoidhq/js": "file:../../packages/namoid-js",
-    "@namoidhq/react": "file:../../packages/namoid-react",
+    "@namoidhq/js": "^1.1.0",
+    "@namoidhq/nextjs": "^1.1.0",
     "next": "^15.0.0",
-    "next-auth": "^5.0.0-beta.25",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

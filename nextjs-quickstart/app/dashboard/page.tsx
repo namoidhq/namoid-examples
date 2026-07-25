@@ -1,56 +1,22 @@
-/**
- * Protected dashboard. Middleware ensures only authenticated requests reach
- * this page — if you got here, `auth()` will return a session.
- */
-
-import { auth, signOut } from "@/auth";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
 export default async function Dashboard() {
-  const session = await auth();
+  const store = await cookies();
+  const userId = store.get("namoid_user_id")?.value;
 
   return (
     <main>
       <h1 style={{ fontSize: 24, fontWeight: 600, marginBottom: 16 }}>Dashboard</h1>
       <p style={{ marginBottom: 16 }}>
-        You're authenticated via NamoID. Here's what the session looks like —
-        this is what your real app would use:
+        {userId ? "You're authenticated via NamoID Hosted Auth." : "No app session is present yet."}
       </p>
-
-      <pre
-        style={{
-          padding: 16,
-          background: "#f5f5f5",
-          border: "1px solid #e5e5e5",
-          borderRadius: 8,
-          fontSize: 12,
-          overflow: "auto",
-        }}
-      >
-        <code>{JSON.stringify(session, null, 2)}</code>
+      <pre style={{ padding: 16, background: "#f5f5f5", border: "1px solid #e5e5e5", borderRadius: 8, fontSize: 12 }}>
+        <code>{JSON.stringify({ user_id: userId ?? null }, null, 2)}</code>
       </pre>
-
-      <form
-        action={async () => {
-          "use server";
-          await signOut({ redirectTo: "/" });
-        }}
-        style={{ marginTop: 24 }}
-      >
-        <button
-          type="submit"
-          style={{
-            fontSize: 14,
-            padding: "8px 16px",
-            borderRadius: 8,
-            background: "white",
-            color: "#0a0a0a",
-            border: "1px solid #d4d4d4",
-            cursor: "pointer",
-          }}
-        >
-          Sign out
-        </button>
-      </form>
+      <p style={{ marginTop: 24 }}>
+        <Link href="/api/auth/logout">Sign out</Link>
+      </p>
     </main>
   );
 }
