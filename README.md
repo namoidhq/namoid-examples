@@ -2,15 +2,24 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Official, runnable examples for integrating [NamoID Hosted Auth](https://namoid.in).
+Official, runnable integrations for [NamoID](https://namoid.in). Examples are
+organized by integration model first, then framework, so standards-based
+OAuth, OpenID Connect, Workforce SSO, and Agent Access can be added without
+mixing their configuration or security models.
 
-## Supported example
+## Available now: Hosted Auth
 
-| Example | Stack | Packages |
-|---|---|---|
-| [`nextjs-quickstart`](./nextjs-quickstart) | Next.js App Router | `@namoidhq/nextjs` 1.1+, `@namoidhq/js` 1.1+ |
+Hosted Auth redirects users to a branded NamoID sign-in page and returns a
+one-time code to the application. Application keys resolve the application,
+environment, and Hosted Auth domain—there is no application ID or issuer to
+copy into SDK configuration.
 
-The quickstart demonstrates the complete server-side Hosted Auth flow:
+| Example | Use it when |
+|---|---|
+| [`hosted-auth/nextjs`](./hosted-auth/nextjs) | You want the smallest complete Next.js App Router integration. |
+| [`hosted-auth/nextjs-supabase`](./hosted-auth/nextjs-supabase) | NamoID owns authentication and Supabase stores application data. |
+
+Both examples demonstrate the complete confidential Hosted Auth flow:
 
 1. Start a state-bound sign-in transaction.
 2. Redirect the browser to the application’s NamoID-hosted sign-in page.
@@ -19,19 +28,18 @@ The quickstart demonstrates the complete server-side Hosted Auth flow:
 5. Create an HttpOnly application session.
 6. Revoke the NamoID session during sign-out.
 
-## Configuration
+## Integration families
 
-Hosted Auth integrations do not copy an application ID, issuer, client ID,
-OAuth scopes, or Hosted Auth URL into application code.
+| Family | Purpose | Repository status |
+|---|---|---|
+| Hosted Auth | NamoID-hosted consumer sign-in and application sessions | Available |
+| OAuth / OpenID Connect | Standards-compatible clients, scopes, discovery, and tokens | Add when the public contract is enabled |
+| Workforce SSO | Employee application access through OIDC or SAML | Add when public examples are ready |
+| Agent Access | Governed OAuth and MCP access for agents and tools | Add when public examples are ready |
 
-The application is selected by its key:
-
-- `namoid_auth_pk_…` — publishable key for browser and React integrations.
-- `namoid_auth_sk_…` — server-only Auth secret key used by the Next.js SDK.
-
-For the Next.js example, only the server-side Auth secret key is required.
-The SDK reads the key’s browser-safe configuration and resolves the correct
-application and Hosted Auth domain automatically.
+Directories for planned families will be added only when their public contract
+is supported and tested. This prevents examples from advertising configuration
+that is not available in the Console.
 
 ## Links
 

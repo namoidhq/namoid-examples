@@ -10,7 +10,7 @@ Hosted Auth URL to copy into your code.
 - `/api/auth/login` — creates a state-bound transaction and redirects to Hosted Auth
 - `/api/auth/callback` — exchanges the one-time code and creates an HttpOnly cookie
 - `/api/auth/logout` — revokes the native session and clears cookies
-- `/dashboard` — example authenticated page
+- `/dashboard` — validates the access token before rendering authenticated data
 
 ## Run locally
 
@@ -46,3 +46,8 @@ exchanges it using the Auth secret key.
 The secret key stays on the server. It selects the application and lets the SDK
 resolve the correct Hosted Auth domain automatically. Do not expose it through
 a `NEXT_PUBLIC_*` variable.
+
+This example deliberately validates the access token instead of trusting a
+separate user ID cookie. In a production application, store the tokens in an
+encrypted or server-side session and apply the same validation boundary before
+accessing protected data.
