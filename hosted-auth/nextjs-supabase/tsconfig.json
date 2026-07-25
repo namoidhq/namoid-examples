@@ -15,9 +15,7 @@
     "incremental": true,
     "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": ["./*"],
-      "@namoidhq/js": ["../../packages/namoid-js/src/index.ts"],
-      "@namoidhq/react": ["../../packages/namoid-react/src/index.tsx"]
+      "@/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
