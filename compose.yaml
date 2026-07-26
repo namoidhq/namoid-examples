@@ -1,6 +1,26 @@
 name: namoid-examples
 
 services:
+  express-react:
+    build:
+      context: ./hosted-auth/express-react
+    environment:
+      APP_BASE_URL: ${EXPRESS_REACT_APP_URL:-http://localhost:3003}
+      NAMOID_CLIENT_ID: ${EXPRESS_REACT_NAMOID_CLIENT_ID:-}
+      NAMOID_CLIENT_SECRET: ${EXPRESS_REACT_NAMOID_CLIENT_SECRET:-}
+      NODE_ENV: production
+      PORT: 3003
+      SESSION_SECRET: ${EXPRESS_REACT_SESSION_SECRET:-}
+    ports:
+      - "${EXPRESS_REACT_HOST_PORT:-3003}:3003"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3003/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
   react-spa:
     build:
       context: ./hosted-auth/react-spa

@@ -10,17 +10,19 @@ mixing their configuration or security models.
 ## Available now: Hosted Auth
 
 Hosted Auth redirects users to a branded NamoID sign-in page and returns a
-one-time code to the application. Application keys resolve the application,
+one-time code to the application. The Client ID resolves the application,
 environment, and Hosted Auth domain—there is no application ID or issuer to
 copy into SDK configuration.
 
 | Example | Use it when |
 |---|---|
 | [`hosted-auth/react-spa`](./hosted-auth/react-spa) | You have a browser-only React application and need Authorization Code + PKCE without a secret. |
+| [`hosted-auth/express-react`](./hosted-auth/express-react) | React and a separate Express API need a confidential, server-managed application session. |
 | [`hosted-auth/nextjs`](./hosted-auth/nextjs) | You want the smallest complete Next.js App Router integration. |
 | [`hosted-auth/nextjs-supabase`](./hosted-auth/nextjs-supabase) | NamoID owns authentication and Supabase stores application data. |
 
-The Next.js examples demonstrate the complete confidential Hosted Auth flow:
+The Express and Next.js examples demonstrate the complete confidential Hosted
+Auth flow:
 
 1. Start a state-bound sign-in transaction.
 2. Redirect the browser to the application’s NamoID-hosted sign-in page.
@@ -39,6 +41,9 @@ Each example has a production multi-stage Docker image. Copy the root
 `.env.example` to `.env`, fill in the values for the service you want, then run:
 
 ```bash
+# Express + React
+docker compose up --build express-react
+
 # React SPA
 docker compose up --build react-spa
 
@@ -48,15 +53,15 @@ docker compose up --build nextjs
 # Next.js with Supabase
 docker compose up --build nextjs-supabase
 
-# Or run both
+# Or run every example
 docker compose up --build
 ```
 
 The Compose services load secrets only at runtime. Local environment files,
 dependencies, and build outputs are excluded from Docker build contexts.
-Change `NEXTJS_HOST_PORT` or `SUPABASE_NEXTJS_HOST_PORT` in `.env` when a
-default host port is already occupied, and update the matching application URL
-and registered NamoID callback.
+Change the matching `*_HOST_PORT` in `.env` when a default host port is already
+occupied, then update that example's application URL and registered NamoID
+callback.
 
 ## Integration families
 
