@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@namoidhq/nextjs':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^2.0.0
+        version: 2.0.0
       next:
         specifier: ^15.0.0
         version: 15.5.18(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -179,11 +179,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@namoidhq/js@1.1.0':
-    resolution: {integrity: sha512-9VyRA1SvDRq+GAE4X1awYJzZ+s7KJZDlhYaN0Pzy4kpiTBYAe9pMDu0+GPHU7YTfSMsosnByVyuYcg/faZSrZA==}
+  '@namoidhq/js@2.0.0':
+    resolution: {integrity: sha512-TC89WOtDMPxTnD4dwSQB1+cz0k7otFLRTaXvGXGcjKbqB7RnW3UXQnTwxX6MemRXxV2g39pVF+3hKu58SoyBMA==}
 
-  '@namoidhq/nextjs@1.1.0':
-    resolution: {integrity: sha512-v0vn/0G8nX0GJJRrMpz9oPmRKcEPYkKXRTy16J91/3KwvTWxU061+IosSBVcp4SfiqeGv01PWMQJVySDMsGtDw==}
+  '@namoidhq/nextjs@2.0.0':
+    resolution: {integrity: sha512-hWHgm/xsdHHV87U5aR3fHWcDSMjWIhjBx6Lqlgw591xSuG16ymd1ZJdOKG+giSQD047QepisXKP/vgvEEKLfsQ==}
 
   '@next/env@15.5.18':
     resolution: {integrity: sha512-hAV85Ckd9QR6RvH04MEKwsfLTksvFpO47j9xwtoIuvuPnlwecpSi+uZTtm8HirVbtlI2Fnz//xpcSTjFdyJk+g==}
@@ -449,11 +449,11 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@namoidhq/js@1.1.0': {}
+  '@namoidhq/js@2.0.0': {}
 
-  '@namoidhq/nextjs@1.1.0':
+  '@namoidhq/nextjs@2.0.0':
     dependencies:
-      '@namoidhq/js': 1.1.0
+      '@namoidhq/js': 2.0.0
 
   '@next/env@15.5.18': {}
 

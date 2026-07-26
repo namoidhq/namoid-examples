@@ -16,10 +16,11 @@ copy into SDK configuration.
 
 | Example | Use it when |
 |---|---|
+| [`hosted-auth/react-spa`](./hosted-auth/react-spa) | You have a browser-only React application and need Authorization Code + PKCE without a secret. |
 | [`hosted-auth/nextjs`](./hosted-auth/nextjs) | You want the smallest complete Next.js App Router integration. |
 | [`hosted-auth/nextjs-supabase`](./hosted-auth/nextjs-supabase) | NamoID owns authentication and Supabase stores application data. |
 
-Both examples demonstrate the complete confidential Hosted Auth flow:
+The Next.js examples demonstrate the complete confidential Hosted Auth flow:
 
 1. Start a state-bound sign-in transaction.
 2. Redirect the browser to the application’s NamoID-hosted sign-in page.
@@ -28,12 +29,19 @@ Both examples demonstrate the complete confidential Hosted Auth flow:
 5. Create an HttpOnly application session.
 6. Revoke the NamoID session during sign-out.
 
+The React SPA demonstrates the public-client variant: state and PKCE protect
+the browser redirect, the Client ID is safe to expose, and no Client Secret is
+placed in frontend code.
+
 ## Run with Docker
 
 Each example has a production multi-stage Docker image. Copy the root
 `.env.example` to `.env`, fill in the values for the service you want, then run:
 
 ```bash
+# React SPA
+docker compose up --build react-spa
+
 # Standalone Next.js
 docker compose up --build nextjs
 

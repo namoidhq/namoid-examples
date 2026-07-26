@@ -8,9 +8,9 @@ function required(name: string): string {
 
 export function getNamoID() {
   return createNamoIDNextClient({
-    authSecretKey: required("NAMOID_AUTH_SECRET_KEY"),
+    clientId: required("NAMOID_CLIENT_ID"),
+    clientSecret: required("NAMOID_CLIENT_SECRET"),
     appBaseUrl: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3001",
-    apiBaseUrl: process.env.NAMOID_API_BASE_URL,
     callbackPath: "/api/auth/callback",
     postLoginRedirectPath: "/dashboard",
     postLogoutRedirectPath: "/",

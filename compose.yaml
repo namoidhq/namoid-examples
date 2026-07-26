@@ -1,13 +1,28 @@
 name: namoid-examples
 
 services:
+  react-spa:
+    build:
+      context: ./hosted-auth/react-spa
+      args:
+        VITE_NAMOID_CLIENT_ID: ${SPA_NAMOID_CLIENT_ID:-}
+    ports:
+      - "${SPA_HOST_PORT:-5173}:8080"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
   nextjs:
     build:
       context: ./hosted-auth/nextjs
     environment:
       HOSTNAME: 0.0.0.0
-      NAMOID_API_BASE_URL: ${NEXTJS_NAMOID_API_BASE_URL:-https://api.namoid.in}
-      NAMOID_AUTH_SECRET_KEY: ${NEXTJS_NAMOID_AUTH_SECRET_KEY:-}
+      NAMOID_CLIENT_ID: ${NEXTJS_NAMOID_CLIENT_ID:-}
+      NAMOID_CLIENT_SECRET: ${NEXTJS_NAMOID_CLIENT_SECRET:-}
       NEXT_PUBLIC_APP_URL: ${NEXTJS_APP_URL:-http://localhost:3001}
       NODE_ENV: production
       PORT: 3001
@@ -26,8 +41,8 @@ services:
       context: ./hosted-auth/nextjs-supabase
     environment:
       HOSTNAME: 0.0.0.0
-      NAMOID_API_BASE_URL: ${SUPABASE_NEXTJS_NAMOID_API_BASE_URL:-https://api.namoid.in}
-      NAMOID_AUTH_SECRET_KEY: ${SUPABASE_NEXTJS_NAMOID_AUTH_SECRET_KEY:-}
+      NAMOID_CLIENT_ID: ${SUPABASE_NEXTJS_NAMOID_CLIENT_ID:-}
+      NAMOID_CLIENT_SECRET: ${SUPABASE_NEXTJS_NAMOID_CLIENT_SECRET:-}
       NEXT_PUBLIC_APP_URL: ${SUPABASE_NEXTJS_APP_URL:-http://localhost:3002}
       NODE_ENV: production
       PORT: 3002
