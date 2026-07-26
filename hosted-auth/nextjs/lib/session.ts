@@ -9,14 +9,15 @@ export type NamoIDSession = {
 
 export async function readNamoIDSession(): Promise<NamoIDSession | null> {
   const accessToken = (await cookies()).get("namoid_access_token")?.value;
-  const authSecretKey = process.env.NAMOID_AUTH_SECRET_KEY;
-  if (!accessToken || !authSecretKey) return null;
+  const clientId = process.env.NAMOID_CLIENT_ID;
+  const clientSecret = process.env.NAMOID_CLIENT_SECRET;
+  if (!accessToken || !clientId || !clientSecret) return null;
 
   try {
     const result = await validateAuthToken({
       token: accessToken,
-      apiKey: authSecretKey,
-      apiBaseUrl: process.env.NAMOID_API_BASE_URL,
+      clientId,
+      clientSecret,
     });
     if (!result.valid || !result.user_id) return null;
     return {

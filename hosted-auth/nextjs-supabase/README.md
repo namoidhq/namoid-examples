@@ -28,7 +28,7 @@ third-party JWT verification and user-scoped RLS policies.
    http://localhost:3002/api/auth/callback
    ```
 
-3. Create an Auth secret key and copy it when shown.
+3. Copy the Test Client ID and Client Secret shown for the application.
 
 ## Configure Supabase
 
@@ -39,7 +39,8 @@ third-party JWT verification and user-scoped RLS policies.
 Copy `.env.example` to `.env.local` and set:
 
 ```env
-NAMOID_AUTH_SECRET_KEY=namoid_auth_sk_test_…
+NAMOID_CLIENT_ID=namoid_client_test_…
+NAMOID_CLIENT_SECRET=namoid_secret_test_…
 NEXT_PUBLIC_APP_URL=http://localhost:3002
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SECRET_KEY=sb_secret_…

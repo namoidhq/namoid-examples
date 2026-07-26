@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@namoidhq/js": "^1.1.0",
-    "@namoidhq/nextjs": "^1.1.0",
+    "@namoidhq/js": "^2.0.0",
+    "@namoidhq/nextjs": "^2.0.0",
     "@supabase/supabase-js": "^2.0.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
