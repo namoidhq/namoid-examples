@@ -4,6 +4,9 @@ A browser-only React example using `@namoidhq/react`. It uses the OAuth
 Authorization Code flow with PKCE, so the SPA needs a Client ID but must never
 receive a Client Secret.
 
+Planned public demo: `spa.examples.namoid.in`. It must use a dedicated NamoID
+Test application; visitors should never enter production or sensitive data.
+
 ## Configure NamoID
 
 Create or open a **public / SPA** application in a Test environment, then

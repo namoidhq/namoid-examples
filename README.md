@@ -7,6 +7,10 @@ organized by integration model first, then framework, so standards-based
 OAuth, OpenID Connect, Workforce SSO, and Agent Access can be added without
 mixing their configuration or security models.
 
+The public examples directory is designed for `examples.namoid.in`. Follow
+[HOSTING.md](./HOSTING.md) to deploy it and the first demos from this repository
+using free hosting services.
+
 ## Available now: Hosted Auth
 
 Hosted Auth redirects users to a branded NamoID sign-in page and returns a

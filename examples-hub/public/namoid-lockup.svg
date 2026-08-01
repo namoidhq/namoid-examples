@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="100" viewBox="0 0 430 100" fill="none"><g transform="translate(2,5) scale(0.9)">
+  <defs><mask id="nlh"><path d="M32 74L32 26L68 74L68 26" stroke="#fff" stroke-width="22" fill="none" stroke-linecap="round" stroke-linejoin="round"/></mask></defs>
+  <g mask="url(#nlh)"><rect x="0" y="0" width="100" height="100" fill="#0e5b47"/>
+    <g fill="none" stroke="#0a4a39" stroke-width="2.8"><circle cx="50" cy="50" r="10"/><circle cx="50" cy="50" r="16"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="40"/></g>
+  </g>
+  <g fill="#cfe3da"><circle cx="32" cy="74" r="3.6"/><circle cx="68" cy="26" r="3.6"/><circle cx="50" cy="50" r="4"/></g></g>
+  <g transform="translate(118,0)"><text x="0" y="63" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="800" font-size="58" letter-spacing="-1.6" fill="#0a0a0a">Namo<tspan fill="#0e5b47">ID</tspan></text></g>
+</svg>
