@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Try complete, open-source NamoID authentication examples." />
+    <title>NamoID Examples</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="https://namoid.in" aria-label="NamoID home">
+        <img src="/namoid-lockup.svg" alt="NamoID" />
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="https://docs.namoid.in">Docs</a>
+        <a href="https://github.com/namoidhq/namoid-examples">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">OPEN-SOURCE EXAMPLES</p>
+        <h1>See NamoID authentication working before you integrate it.</h1>
+        <p class="lede">
+          Try a real Hosted Auth flow, inspect the source, and start from the framework closest to your application.
+        </p>
+        <div class="notice" role="note">
+          These are public Test applications. Use a test email and never enter production or sensitive data.
+        </div>
+      </section>
+
+      <section class="examples" aria-labelledby="examples-title">
+        <div class="section-heading">
+          <p class="eyebrow">HOSTED AUTH</p>
+          <h2 id="examples-title">Choose an integration</h2>
+        </div>
+
+        <div class="grid">
+          <article class="card featured">
+            <div>
+              <span class="status ready">Ready to deploy</span>
+              <h3>Next.js</h3>
+              <p>App Router, server-side code exchange, HttpOnly session cookies, token validation, and sign-out.</p>
+            </div>
+            <div class="actions">
+              <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/hosted-auth/nextjs">View source</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="status ready">Ready to deploy</span>
+              <h3>React SPA</h3>
+              <p>Browser-only React with Authorization Code + PKCE and no client secret in frontend code.</p>
+            </div>
+            <div class="actions">
+              <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/hosted-auth/react-spa">View source</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="status planned">Next</span>
+              <h3>Next.js + Supabase</h3>
+              <p>NamoID owns authentication while Supabase stores application data behind an authenticated server boundary.</p>
+            </div>
+            <div class="actions">
+              <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/hosted-auth/nextjs-supabase">View source</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="status planned">Source only</span>
+              <h3>Express + React</h3>
+              <p>A separate Express API manages the confidential code exchange and application session for React.</p>
+            </div>
+            <div class="actions">
+              <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/hosted-auth/express-react">View source</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Secured by NamoID</span>
+      <div>
+        <a href="https://namoid.in/privacy">Privacy</a>
+        <a href="https://namoid.in/terms">Terms</a>
+        <a href="https://docs.namoid.in">Help</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -4,6 +4,10 @@ Next.js App Router example using `@namoidhq/nextjs` and NamoID Hosted Auth.
 The application is selected by its NamoID Client ID—there is no application ID or
 Hosted Auth URL to copy into your code.
 
+Planned public demo: `nextjs.examples.namoid.in`. It must use a dedicated
+NamoID Test application; visitors should never enter production or sensitive
+data.
+
 ## What it includes
 
 - `/` — public landing page
