@@ -12,8 +12,11 @@ export default function Home() {
       </p>
       <p>
         <Link href="/api/auth/login" style={{ color: "#0a0a0a", fontWeight: 500 }}>
-          Sign in with NamoID →
+          Sign in →
         </Link>
+      </p>
+      <p style={{ color: "#737373", fontSize: 14, marginTop: 12 }}>
+        Secured by NamoID
       </p>
       <p>
         <Link href="/dashboard" style={{ color: "#0a0a0a", fontWeight: 500 }}>
