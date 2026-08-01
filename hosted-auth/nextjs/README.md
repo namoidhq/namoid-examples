@@ -44,7 +44,7 @@ pnpm install
 pnpm dev
 ```
 
-Open <http://localhost:3001> and choose **Sign in with NamoID**. The hosted
+Open <http://localhost:3001> and choose **Sign in**. The NamoID-secured hosted
 page authenticates the user, returns a one-time code, and the server route
 exchanges it using the server-only application credentials.
 

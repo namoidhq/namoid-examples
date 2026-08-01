@@ -12,6 +12,12 @@ export const GET = (request: Request) =>
         path: "/",
         maxAge: tokens.expires_in ?? 600,
       });
-      return Response.redirect(new URL("/dashboard", request.url));
+      // Use an explicitly mutable Headers object. The NamoID SDK clears its
+      // short-lived transaction cookies after this callback returns; headers
+      // created by Response.redirect() are immutable in some runtimes.
+      return new Response(null, {
+        status: 302,
+        headers: new Headers({ location: new URL("/dashboard", request.url).toString() }),
+      });
     },
   });
