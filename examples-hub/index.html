@@ -24,7 +24,7 @@
         <p class="eyebrow">OPEN-SOURCE EXAMPLES</p>
         <h1>See NamoID authentication working before you integrate it.</h1>
         <p class="lede">
-          Try a real Hosted Auth flow, inspect the source, and start from the framework closest to your application.
+          Try a real Hosted Auth flow, protect an MCP server with OAuth, inspect the source, and start from the framework closest to your application.
         </p>
         <div class="notice" role="note">
           These are public Test applications. Use a test email and never enter production or sensitive data.
@@ -79,6 +79,40 @@
             </div>
             <div class="actions">
               <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/hosted-auth/express-react">View source</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="examples" aria-labelledby="mcp-title">
+        <div class="section-heading">
+          <p class="eyebrow">MCP AUTHORIZATION</p>
+          <h2 id="mcp-title">Protect an MCP server</h2>
+          <p class="lede">
+            NamoID authenticates the user, records consent, and issues a short-lived token limited to your MCP server and the actions approved. Your server validates and enforces it.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div>
+              <span class="status planned">Source only</span>
+              <h3>Express + TypeScript</h3>
+              <p>Protected-resource discovery, a bearer challenge, audience-bound token verification, and per-tool scopes with the verifier written out in full.</p>
+            </div>
+            <div class="actions">
+              <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/mcp-authorization/express-ts">View source</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="status planned">Source only</span>
+              <h3>FastMCP + Python</h3>
+              <p>The same four tools and scopes on FastMCP, which already implements the resource-server half of the MCP authorization profile.</p>
+            </div>
+            <div class="actions">
+              <a class="button secondary" href="https://github.com/namoidhq/namoid-examples/tree/main/mcp-authorization/fastmcp-python">View source</a>
             </div>
           </article>
         </div>

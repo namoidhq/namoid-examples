@@ -14,6 +14,12 @@ Test applications. No production customer credentials belong in these demos.
 The Supabase and Express examples remain source-only until their public demo
 data and runtime boundaries are ready.
 
+The MCP Authorization examples are source-only. They are long-running HTTP
+servers rather than static sites or serverless routes, and a public demo would
+expose a shared write surface — `create_invoice` and `issue_refund` — to any
+visitor who connects a client. Host them yourself against your own NamoID Test
+environment instead.
+
 ## NamoID Test applications
 
 Create one application per demo. This keeps redirect URIs, sessions, audit

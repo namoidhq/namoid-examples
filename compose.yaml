@@ -56,6 +56,50 @@ services:
       start_period: 10s
     restart: unless-stopped
 
+  mcp-express-ts:
+    build:
+      context: ./mcp-authorization/express-ts
+    environment:
+      NAMOID_ISSUER: ${MCP_EXPRESS_TS_NAMOID_ISSUER:-}
+      NAMOID_MCP_RESOURCE: ${MCP_EXPRESS_TS_RESOURCE:-}
+      NAMOID_MCP_RESOURCE_NAME: ${MCP_EXPRESS_TS_RESOURCE_NAME:-Acme Finance MCP}
+      NODE_ENV: production
+      PORT: 3004
+    ports:
+      - "${MCP_EXPRESS_TS_HOST_PORT:-3004}:3004"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3004/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  mcp-fastmcp-python:
+    build:
+      context: ./mcp-authorization/fastmcp-python
+    environment:
+      NAMOID_ISSUER: ${MCP_FASTMCP_NAMOID_ISSUER:-}
+      NAMOID_MCP_RESOURCE: ${MCP_FASTMCP_RESOURCE:-}
+      NAMOID_MCP_RESOURCE_NAME: ${MCP_FASTMCP_RESOURCE_NAME:-Acme Finance MCP}
+      PORT: 3005
+    ports:
+      - "${MCP_FASTMCP_HOST_PORT:-3005}:3005"
+    healthcheck:
+      # FastMCP serves no unauthenticated health route, so the protected-resource
+      # metadata document doubles as the liveness probe.
+      test:
+        - CMD-SHELL
+        - >-
+          python -c "import os,sys,urllib.parse,urllib.request;
+          p=urllib.parse.urlsplit(os.environ['NAMOID_MCP_RESOURCE']).path.rstrip('/');
+          urllib.request.urlopen('http://127.0.0.1:3005/.well-known/oauth-protected-resource'+p,timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+
   nextjs-supabase:
     build:
       context: ./hosted-auth/nextjs-supabase

@@ -39,6 +39,37 @@ The React SPA demonstrates the public-client variant: state and PKCE protect
 the browser redirect, the Client ID is safe to expose, and no Client Secret is
 placed in frontend code.
 
+## Available now: MCP Authorization
+
+[`mcp-authorization`](./mcp-authorization) protects a customer-owned MCP server
+with NamoID. NamoID is the authorization server, your MCP server is the
+protected resource, and an MCP host such as Claude, ChatGPT, Cursor, or VS Code
+is the OAuth client. The signed-in human approves which actions that client may
+take.
+
+| Example | Use it when |
+|---|---|
+| [`mcp-authorization/express-ts`](./mcp-authorization/express-ts) | You run Node. Express and `@modelcontextprotocol/sdk`, with the token verifier written out in full. |
+| [`mcp-authorization/fastmcp-python`](./mcp-authorization/fastmcp-python) | You run Python. FastMCP, which already implements the resource-server half. |
+
+Both examples expose the same four tools and scopes and behave identically on
+every success and failure path, so the choice is language, not capability. Each
+demonstrates:
+
+1. RFC 9728 protected-resource metadata published at the path derived from the
+   canonical MCP URL.
+2. A `401` with a `WWW-Authenticate` challenge that starts client discovery.
+3. Audience-bound token verification — signature, issuer, exact audience,
+   expiry, and `token_use`.
+4. Per-tool scope enforcement with an `insufficient_scope` challenge for
+   incremental authorization.
+5. Business authorization after the scope check, because a scope is permission
+   to attempt an action rather than the final decision.
+
+Each example ships a `verify` script that checks discovery, metadata, the
+unauthenticated challenge, and rejection of a forged token before you connect a
+real client.
+
 ## Run with Docker
 
 Each example has a production multi-stage Docker image. Copy the root
@@ -57,6 +88,12 @@ docker compose up --build nextjs
 # Next.js with Supabase
 docker compose up --build nextjs-supabase
 
+# Protected MCP server (Express + TypeScript)
+docker compose up --build mcp-express-ts
+
+# Protected MCP server (FastMCP + Python)
+docker compose up --build mcp-fastmcp-python
+
 # Or run every example
 docker compose up --build
 ```
@@ -72,6 +109,7 @@ callback.
 | Family | Purpose | Repository status |
 |---|---|---|
 | Hosted Auth | NamoID-hosted consumer sign-in and application sessions | Available |
+| MCP Authorization | OAuth protection for a customer-owned MCP server | Available |
 | OAuth / OpenID Connect | Standards-compatible clients, scopes, discovery, and tokens | Add when the public contract is enabled |
 | Workforce SSO | Employee application access through OIDC or SAML | Add when public examples are ready |
 | Agent Access | Governed OAuth and MCP access for agents and tools | Add when public examples are ready |
