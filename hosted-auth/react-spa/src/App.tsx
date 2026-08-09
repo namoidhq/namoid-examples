@@ -1,7 +1,7 @@
 import {
   completeHostedAuthRedirect,
-  HostedAuthButton,
   type CompletedHostedAuth,
+  NamoIDSignInModal,
   useAuthConfig,
   useNamoID,
 } from "@namoidhq/react";
@@ -11,8 +11,12 @@ export default function App() {
   const client = useNamoID();
   const { config, loading: configLoading, error: configError } = useAuthConfig();
   const [auth, setAuth] = useState<CompletedHostedAuth | null>(null);
+  const [signInOpen, setSignInOpen] = useState(false);
   const [callbackPending, setCallbackPending] = useState(
-    () => new URL(window.location.href).searchParams.has("code"),
+    () => {
+      const callback = new URL(window.location.href).searchParams;
+      return callback.has("code") || callback.has("error");
+    },
   );
   const [error, setError] = useState<string | null>(null);
   const completionStarted = useRef(false);
@@ -62,10 +66,11 @@ export default function App() {
     <main className="shell">
       <section className="hero">
         <p className="eyebrow">NamoID Hosted Auth · React SPA</p>
-        <h1>Public-client authentication without a browser secret.</h1>
+        <h1>One sign-in button. A complete secure flow.</h1>
         <p className="lede">
-          This example resolves Hosted Auth from one Client ID and protects the
-          authorization-code exchange with PKCE.
+          Open NamoID in a focused modal flow while your application stays in
+          context. Credentials, passkeys, social providers, MFA, and consent
+          remain on NamoID-hosted pages.
         </p>
       </section>
 
@@ -115,14 +120,36 @@ export default function App() {
                   ? `${config.signin_methods.length} sign-in methods enabled`
                   : "Configuration unavailable"}
             </p>
-            <h2>Try the complete browser flow</h2>
+            <h2>Try popup-first Hosted Auth</h2>
             <p>
-              NamoID handles the branded sign-in page and returns here with a
-              one-time authorization code.
+              This app opens a small sign-in modal. NamoID then runs the
+              authentication ceremony in a secure popup and returns a one-time
+              authorization code protected by PKCE.
             </p>
-            <HostedAuthButton className="button" redirectUri={redirectUri}>
+            <button
+              className="button"
+              type="button"
+              disabled={configLoading || Boolean(configError) || !config}
+              onClick={() => setSignInOpen(true)}
+            >
               Sign in
-            </HostedAuthButton>
+            </button>
+            <NamoIDSignInModal
+              open={signInOpen}
+              onOpenChange={setSignInOpen}
+              redirectUri={redirectUri}
+              title="Sign in to the React example"
+              description="Continue to the secure sign-in methods configured for this application."
+              buttonLabel="Continue securely"
+              appearance={{ theme: "auto", accent: "#0d664e", radius: 18 }}
+              onComplete={(result) => {
+                setAuth(result);
+                setSignInOpen(false);
+              }}
+              onError={() => {
+                // The SDK renders privacy-safe recovery copy inside the modal.
+              }}
+            />
           </>
         )}
 
@@ -137,6 +164,7 @@ export default function App() {
         <span>Secured by NamoID</span>
         <span>Public Client</span>
         <span>Authorization Code + PKCE</span>
+        <span>Popup + Redirect Fallback</span>
         <span>No Client Secret</span>
       </footer>
     </main>

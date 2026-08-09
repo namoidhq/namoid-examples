@@ -1,8 +1,8 @@
 # NamoID Hosted Auth + React SPA
 
-A browser-only React example using `@namoidhq/react`. It uses the OAuth
-Authorization Code flow with PKCE, so the SPA needs a Client ID but must never
-receive a Client Secret.
+A browser-only React example using `@namoidhq/react`. It demonstrates NamoID's
+popup-first sign-in modal on top of the OAuth Authorization Code flow with
+PKCE. The SPA needs a Client ID but must never receive a Client Secret.
 
 Planned public demo: `spa.examples.namoid.in`. It must use a dedicated NamoID
 Test application; visitors should never enter production or sensitive data.
@@ -28,11 +28,20 @@ pnpm dev
 
 Open <http://localhost:5173>.
 
-The SDK stores only the short-lived PKCE transaction in `sessionStorage`. The
-example keeps returned tokens in memory and removes the authorization response
-from browser history. Reloading or closing the tab removes the local app
-session. A production SPA should apply a strict Content Security Policy and
-avoid untrusted third-party scripts.
+Choose **Sign in** to open the application-owned modal. The SDK launches the
+NamoID-hosted authentication ceremony in a focused popup and relays only the
+authorization result through the same-origin callback. Credentials, passkeys,
+MFA codes, and provider tokens are never rendered into the application DOM.
+
+If the browser blocks the popup, the SDK starts a fresh full-page redirect and
+the same callback route completes it. The SDK stores only short-lived state,
+nonce, and PKCE transaction data in `sessionStorage`. This example keeps
+returned tokens in memory and removes the authorization response from browser
+history. Reloading or closing the tab removes the local app session.
+
+A production SPA should apply a strict Content Security Policy, avoid untrusted
+third-party scripts, and prefer a confidential backend-for-frontend when it
+needs durable sessions or refresh tokens.
 
 ## Run with Docker
 
