@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.1.0
+        version: 3.1.0
       '@namoidhq/react':
-        specifier: ^3.0.0
-        version: 3.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^3.1.0
+        version: 3.1.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
         specifier: ^19.0.0
         version: 19.2.8
@@ -294,11 +294,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@namoidhq/js@3.0.0':
-    resolution: {integrity: sha512-0r3YVTyrEKAwAYfVJQrOAd9qvZC/SXTlgP+7WHRdy/0Yw8zrMQRTqtYudrswU8UluRQwN8s+ceNHDeWLvgawHw==}
+  '@namoidhq/js@3.1.0':
+    resolution: {integrity: sha512-S/K5Th8Su9L3DhPTIRi+Dd45f9xg9mlv8BLI3fKsKM72Kk5c7JKoqXzBIu8Q6GMX/3htg4c62e1P/5GUwUUhdw==}
 
-  '@namoidhq/react@3.0.0':
-    resolution: {integrity: sha512-d54O7IpnIBK3ngP268DTcNrcw22iqySqSFIsDjEK84+XfdssLLBjb1dre11Yy9UiQYLbhrqUoCj4vB7gMfRj2A==}
+  '@namoidhq/react@3.1.0':
+    resolution: {integrity: sha512-YQHrSzrSl9XlZ45XV7r+N7+Wq0CA+J8baMJsOS8D+ekmqZ8USq7YvoJ3ImyjN3ZMnBnZ3P7iQURVGcQqYh0asA==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -858,13 +858,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@namoidhq/js@3.0.0':
+  '@namoidhq/js@3.1.0':
     dependencies:
       jose: 6.2.8
 
-  '@namoidhq/react@3.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@namoidhq/react@3.1.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@namoidhq/js': 3.0.0
+      '@namoidhq/js': 3.1.0
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 

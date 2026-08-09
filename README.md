@@ -21,7 +21,7 @@ domain—there is no application ID or issuer to copy into SDK configuration.
 
 | Example | Use it when |
 |---|---|
-| [`hosted-auth/react-spa`](./hosted-auth/react-spa) | You have a browser-only React application and need Authorization Code + PKCE without a secret. |
+| [`hosted-auth/react-spa`](./hosted-auth/react-spa) | You want a popup-first React sign-in modal with a secure redirect fallback and Authorization Code + PKCE without a secret. |
 | [`hosted-auth/express-react`](./hosted-auth/express-react) | React and a separate Express API need a confidential, server-managed application session. |
 | [`hosted-auth/nextjs`](./hosted-auth/nextjs) | You want the smallest complete Next.js App Router integration. |
 | [`hosted-auth/nextjs-supabase`](./hosted-auth/nextjs-supabase) | NamoID owns authentication and Supabase stores application data. |
@@ -36,9 +36,11 @@ Auth flow:
 5. Create an HttpOnly application session and refresh it server-side.
 6. Revoke the token grant and use standard provider logout during sign-out.
 
-The React SPA demonstrates the public-client variant: state and PKCE protect
-the browser redirect, the Client ID is safe to expose, and no Client Secret is
-placed in frontend code.
+The React SPA demonstrates the public-client variant: an application-owned
+modal launches NamoID Hosted Auth in a focused popup, a same-origin callback
+bridge returns the authorization result, and a fresh full-page redirect is used
+when popups are blocked. State and PKCE protect both presentations, the Client
+ID is safe to expose, and no Client Secret is placed in frontend code.
 
 ## Run with Docker
 
