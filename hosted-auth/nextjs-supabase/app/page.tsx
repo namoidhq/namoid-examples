@@ -15,7 +15,7 @@ export default async function Home() {
       </p>
       <p>
         <Link href={session ? "/dashboard" : "/api/auth/login"}>
-          {session ? "Open your profile →" : "Sign in with NamoID →"}
+          {session ? "Open your profile →" : "Sign in →"}
         </Link>
       </p>
     </main>

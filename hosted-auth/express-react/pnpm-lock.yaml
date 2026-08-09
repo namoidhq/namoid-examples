@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       express:
         specifier: ^4.21.0
         version: 4.22.2
@@ -474,8 +474,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@namoidhq/js@2.0.0':
-    resolution: {integrity: sha512-TC89WOtDMPxTnD4dwSQB1+cz0k7otFLRTaXvGXGcjKbqB7RnW3UXQnTwxX6MemRXxV2g39pVF+3hKu58SoyBMA==}
+  '@namoidhq/js@3.0.0':
+    resolution: {integrity: sha512-0r3YVTyrEKAwAYfVJQrOAd9qvZC/SXTlgP+7WHRdy/0Yw8zrMQRTqtYudrswU8UluRQwN8s+ceNHDeWLvgawHw==}
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -930,6 +930,9 @@ packages:
   is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
+
+  jose@6.2.8:
+    resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -1539,7 +1542,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@namoidhq/js@2.0.0': {}
+  '@namoidhq/js@3.0.0':
+    dependencies:
+      jose: 6.2.8
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 
@@ -2036,6 +2041,8 @@ snapshots:
   ipaddr.js@1.9.1: {}
 
   is-fullwidth-code-point@3.0.0: {}
+
+  jose@6.2.8: {}
 
   js-tokens@4.0.0: {}
 

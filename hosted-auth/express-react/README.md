@@ -6,14 +6,15 @@ Express as their trusted application server.
 ## Trust boundary
 
 - React never receives the NamoID Client Secret, access token, or refresh token.
-- Express creates and stores the state/PKCE transaction.
+- Express creates and stores state, nonce, PKCE, and the exact redirect URI.
 - Express exchanges the callback code with the Client ID and Client Secret.
+- Express validates the issuer, signed ID token, nonce, and UserInfo subject.
 - The browser receives only an opaque, `HttpOnly`, `SameSite=Lax` application
   session cookie.
-- Protected routes validate the NamoID access token and rotate it from the
-  server-held refresh token before expiry.
-- Sign-out revokes the NamoID session, destroys the application session, and
-  clears the Hosted Auth browser session.
+- Protected routes load UserInfo and rotate access tokens from the server-held
+  refresh token before expiry.
+- Sign-out uses standard token revocation and provider logout, then destroys
+  the application session.
 
 ## Configure NamoID
 

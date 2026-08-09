@@ -5,7 +5,9 @@ declare module "express-session" {
   interface SessionData {
     namoidTransaction?: {
       state: string;
+      nonce: string;
       codeVerifier: string;
+      redirectUri: string;
       createdAt: number;
     };
     namoidAuth?: {

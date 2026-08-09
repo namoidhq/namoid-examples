@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@namoidhq/nextjs':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       next:
         specifier: ^15.0.0
         version: 15.5.18(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -179,11 +179,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@namoidhq/js@2.0.0':
-    resolution: {integrity: sha512-TC89WOtDMPxTnD4dwSQB1+cz0k7otFLRTaXvGXGcjKbqB7RnW3UXQnTwxX6MemRXxV2g39pVF+3hKu58SoyBMA==}
+  '@namoidhq/js@3.0.0':
+    resolution: {integrity: sha512-0r3YVTyrEKAwAYfVJQrOAd9qvZC/SXTlgP+7WHRdy/0Yw8zrMQRTqtYudrswU8UluRQwN8s+ceNHDeWLvgawHw==}
 
-  '@namoidhq/nextjs@2.0.0':
-    resolution: {integrity: sha512-hWHgm/xsdHHV87U5aR3fHWcDSMjWIhjBx6Lqlgw591xSuG16ymd1ZJdOKG+giSQD047QepisXKP/vgvEEKLfsQ==}
+  '@namoidhq/nextjs@3.0.0':
+    resolution: {integrity: sha512-o/grAwfJtKr3hZIOi7QpefPkB9SZDqu3dHW9zQH33qmE38M+Tkoo1NU0FVONEC6j6qgozxE6qkeu40UnN2Jj3g==}
 
   '@next/env@15.5.18':
     resolution: {integrity: sha512-hAV85Ckd9QR6RvH04MEKwsfLTksvFpO47j9xwtoIuvuPnlwecpSi+uZTtm8HirVbtlI2Fnz//xpcSTjFdyJk+g==}
@@ -262,6 +262,9 @@ packages:
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
+
+  jose@6.2.8:
+    resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
 
   nanoid@3.3.12:
     resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
@@ -449,11 +452,13 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@namoidhq/js@2.0.0': {}
-
-  '@namoidhq/nextjs@2.0.0':
+  '@namoidhq/js@3.0.0':
     dependencies:
-      '@namoidhq/js': 2.0.0
+      jose: 6.2.8
+
+  '@namoidhq/nextjs@3.0.0':
+    dependencies:
+      '@namoidhq/js': 3.0.0
 
   '@next/env@15.5.18': {}
 
@@ -505,6 +510,8 @@ snapshots:
 
   detect-libc@2.1.2:
     optional: true
+
+  jose@6.2.8: {}
 
   nanoid@3.3.12: {}
 

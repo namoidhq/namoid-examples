@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@namoidhq/nextjs':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@supabase/supabase-js':
         specifier: ^2.0.0
         version: 2.110.8
@@ -182,11 +182,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@namoidhq/js@2.0.0':
-    resolution: {integrity: sha512-TC89WOtDMPxTnD4dwSQB1+cz0k7otFLRTaXvGXGcjKbqB7RnW3UXQnTwxX6MemRXxV2g39pVF+3hKu58SoyBMA==}
+  '@namoidhq/js@3.0.0':
+    resolution: {integrity: sha512-0r3YVTyrEKAwAYfVJQrOAd9qvZC/SXTlgP+7WHRdy/0Yw8zrMQRTqtYudrswU8UluRQwN8s+ceNHDeWLvgawHw==}
 
-  '@namoidhq/nextjs@2.0.0':
-    resolution: {integrity: sha512-hWHgm/xsdHHV87U5aR3fHWcDSMjWIhjBx6Lqlgw591xSuG16ymd1ZJdOKG+giSQD047QepisXKP/vgvEEKLfsQ==}
+  '@namoidhq/nextjs@3.0.0':
+    resolution: {integrity: sha512-o/grAwfJtKr3hZIOi7QpefPkB9SZDqu3dHW9zQH33qmE38M+Tkoo1NU0FVONEC6j6qgozxE6qkeu40UnN2Jj3g==}
 
   '@next/env@15.5.22':
     resolution: {integrity: sha512-O5BlKb3KtsHkvO0gjjV66PuJnAgCtIEIzwkt50HRAHsQkU1t77eksIXSZV84/WMtZJjWrnDUPKHVRi0D62nSAA==}
@@ -296,6 +296,9 @@ packages:
   iceberg-js@0.8.1:
     resolution: {integrity: sha512-1dhVQZXhcHje7798IVM+xoo/1ZdVfzOMIc8/rgVSijRK38EDqOJoGula9N/8ZI5RD8QTxNQtK/Gozpr+qUqRRA==}
     engines: {node: '>=20.0.0'}
+
+  jose@6.2.8:
+    resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
 
   nanoid@3.3.16:
     resolution: {integrity: sha512-bzlKTyNJ7+LdGIIwy8ijFpIqEQIvafahV7eYykJ8Cvh42EdJeODoJ6gUJXpQJvej1BddH8OqTXZNE/KfbWAu8Q==}
@@ -483,11 +486,13 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@namoidhq/js@2.0.0': {}
-
-  '@namoidhq/nextjs@2.0.0':
+  '@namoidhq/js@3.0.0':
     dependencies:
-      '@namoidhq/js': 2.0.0
+      jose: 6.2.8
+
+  '@namoidhq/nextjs@3.0.0':
+    dependencies:
+      '@namoidhq/js': 3.0.0
 
   '@next/env@15.5.22': {}
 
@@ -573,6 +578,8 @@ snapshots:
     optional: true
 
   iceberg-js@0.8.1: {}
+
+  jose@6.2.8: {}
 
   nanoid@3.3.16: {}
 

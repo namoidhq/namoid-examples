@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@namoidhq/react':
-        specifier: ^2.0.0
-        version: 2.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^3.0.0
+        version: 3.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
         specifier: ^19.0.0
         version: 19.2.8
@@ -294,11 +294,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@namoidhq/js@2.0.0':
-    resolution: {integrity: sha512-TC89WOtDMPxTnD4dwSQB1+cz0k7otFLRTaXvGXGcjKbqB7RnW3UXQnTwxX6MemRXxV2g39pVF+3hKu58SoyBMA==}
+  '@namoidhq/js@3.0.0':
+    resolution: {integrity: sha512-0r3YVTyrEKAwAYfVJQrOAd9qvZC/SXTlgP+7WHRdy/0Yw8zrMQRTqtYudrswU8UluRQwN8s+ceNHDeWLvgawHw==}
 
-  '@namoidhq/react@2.0.0':
-    resolution: {integrity: sha512-I47jjsRE5kmchStQfwrDtFuDPyCLM5NTyHf//l9SEQzn7PpMONIgW0tZqOeTMTqwviS4pkKuDEyviTRoD7CGMw==}
+  '@namoidhq/react@3.0.0':
+    resolution: {integrity: sha512-d54O7IpnIBK3ngP268DTcNrcw22iqySqSFIsDjEK84+XfdssLLBjb1dre11Yy9UiQYLbhrqUoCj4vB7gMfRj2A==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -517,6 +517,9 @@ packages:
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
+
+  jose@6.2.8:
+    resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -855,11 +858,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@namoidhq/js@2.0.0': {}
-
-  '@namoidhq/react@2.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@namoidhq/js@3.0.0':
     dependencies:
-      '@namoidhq/js': 2.0.0
+      jose: 6.2.8
+
+  '@namoidhq/react@3.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      '@namoidhq/js': 3.0.0
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
@@ -1044,6 +1049,8 @@ snapshots:
     optional: true
 
   gensync@1.0.0-beta.2: {}
+
+  jose@6.2.8: {}
 
   js-tokens@4.0.0: {}
 
