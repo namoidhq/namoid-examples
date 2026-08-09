@@ -7,17 +7,17 @@ identity for the same person.
 ## Trust boundary
 
 - NamoID authenticates the user and issues the application session.
-- Next.js validates the NamoID access token before every protected data access.
+- The callback validates the signed NamoID ID token and UserInfo subject.
+- Next.js loads UserInfo before every protected data access.
 - Supabase is called only from trusted server code.
 - The Supabase secret key never reaches the browser.
 - The server derives `namoid_user_id` from the validated session; it never
   accepts that identifier from a form or URL.
 
 Supabase does not currently list NamoID as a native third-party authentication
-provider, and NamoID's public OIDC client contract is not enabled yet. This
-example therefore does not claim direct browser-to-Supabase RLS authorization.
-When that standards integration is available, this example can move to
-third-party JWT verification and user-scoped RLS policies.
+provider. This example therefore does not claim direct browser-to-Supabase RLS
+authorization. NamoID authentication terminates in trusted Next.js server code,
+which uses the validated subject to scope every Supabase query.
 
 ## Configure NamoID
 

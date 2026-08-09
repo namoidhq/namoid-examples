@@ -11,8 +11,8 @@
     "typecheck": "tsc -b --pretty false"
   },
   "dependencies": {
-    "@namoidhq/js": "^2.0.0",
-    "@namoidhq/react": "^2.0.0",
+    "@namoidhq/js": "^3.0.0",
+    "@namoidhq/react": "^3.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

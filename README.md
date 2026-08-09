@@ -13,10 +13,11 @@ using free hosting services.
 
 ## Available now: Hosted Auth
 
-Hosted Auth redirects users to a branded NamoID sign-in page and returns a
-one-time code to the application. The Client ID resolves the application,
-environment, and Hosted Auth domain—there is no application ID or issuer to
-copy into SDK configuration.
+Hosted Auth gives developers a small SDK surface while using OpenID Connect
+Authorization Code + PKCE underneath. It redirects users to a branded NamoID
+sign-in page and returns a one-time authorization code to the application. The
+Client ID resolves the application, environment, issuer, and Hosted Auth
+domain—there is no application ID or issuer to copy into SDK configuration.
 
 | Example | Use it when |
 |---|---|
@@ -30,10 +31,10 @@ Auth flow:
 
 1. Start a state-bound sign-in transaction.
 2. Redirect the browser to the application’s NamoID-hosted sign-in page.
-3. Exchange the returned one-time code on the server.
-4. Validate the NamoID access token.
-5. Create an HttpOnly application session.
-6. Revoke the NamoID session during sign-out.
+3. Exchange the returned one-time code at the discovered token endpoint.
+4. Validate the signed ID token and load the subject from UserInfo.
+5. Create an HttpOnly application session and refresh it server-side.
+6. Revoke the token grant and use standard provider logout during sign-out.
 
 The React SPA demonstrates the public-client variant: state and PKCE protect
 the browser redirect, the Client ID is safe to expose, and no Client Secret is
@@ -72,7 +73,7 @@ callback.
 | Family | Purpose | Repository status |
 |---|---|---|
 | Hosted Auth | NamoID-hosted consumer sign-in and application sessions | Available |
-| OAuth / OpenID Connect | Standards-compatible clients, scopes, discovery, and tokens | Add when the public contract is enabled |
+| OAuth / OpenID Connect | Standards-based protocol used underneath Hosted Auth SDKs | Available through Hosted Auth |
 | Workforce SSO | Employee application access through OIDC or SAML | Add when public examples are ready |
 | Agent Access | Governed OAuth and MCP access for agents and tools | Add when public examples are ready |
 

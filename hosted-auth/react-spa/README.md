@@ -28,10 +28,11 @@ pnpm dev
 
 Open <http://localhost:5173>.
 
-The example stores the PKCE transaction and returned tokens in
-`sessionStorage`, which limits them to the current browser tab. For a
-production SPA, prefer in-memory token storage where your UX permits it, apply
-a strict Content Security Policy, and avoid untrusted third-party scripts.
+The SDK stores only the short-lived PKCE transaction in `sessionStorage`. The
+example keeps returned tokens in memory and removes the authorization response
+from browser history. Reloading or closing the tab removes the local app
+session. A production SPA should apply a strict Content Security Policy and
+avoid untrusted third-party scripts.
 
 ## Run with Docker
 

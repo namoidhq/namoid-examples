@@ -1,10 +1,8 @@
 import {
   createNamoIDClient,
-  getNamoIDAuthConfig,
-  revokeNativeSession,
   type NamoIDTokenResponse,
 } from "@namoidhq/js";
-import { validateAuthToken } from "@namoidhq/js/server";
+import { validateOIDCIdToken } from "@namoidhq/js/server";
 import express, {
   type NextFunction,
   type Request,
@@ -88,22 +86,20 @@ app.post(
   authRateLimit,
   requireSameOrigin,
   asyncRoute(async (request, response) => {
-    const transaction = await namoid.hostedAuth.createPublicTransaction();
-    request.session.namoidTransaction = {
-      state: transaction.state,
-      codeVerifier: transaction.codeVerifier,
-      createdAt: Date.now(),
-    };
-    const authorizationUrl = await namoid.hostedAuth.getUrl({
-      mode: "sign_in",
-      returnTo: `${appBaseUrl}/api/auth/callback`,
-      state: transaction.state,
-      completionMode: "confidential",
-      codeChallenge: transaction.codeChallenge,
-      codeChallengeMethod: transaction.codeChallengeMethod,
+    const redirectUri = `${appBaseUrl}/api/auth/callback`;
+    const started = await namoid.hostedAuth.start({
+      redirectUri,
+      scopes: ["openid", "email", "offline_access"],
     });
+    request.session.namoidTransaction = {
+      state: started.transaction.state,
+      nonce: started.transaction.nonce,
+      codeVerifier: started.transaction.codeVerifier,
+      redirectUri: started.transaction.redirectUri,
+      createdAt: started.transaction.createdAt,
+    };
     await saveSession(request);
-    response.json({ authorizationUrl });
+    response.json({ authorizationUrl: started.authorizationUrl });
   }),
 );
 
@@ -128,25 +124,34 @@ app.get("/api/auth/callback", authRateLimit, asyncRoute(async (request, response
   }
 
   try {
+    const discovery = await namoid.auth.getDiscovery();
+    if (
+      discovery.authorization_response_iss_parameter_supported &&
+      stringQuery(request.query.iss) !== discovery.issuer
+    ) {
+      throw new Error("authorization_response_issuer_mismatch");
+    }
     const tokens = await namoid.hostedAuth.exchangeCode({
       code,
+      redirectUri: transaction.redirectUri,
       codeVerifier: transaction.codeVerifier,
       clientSecret,
     });
-    const validation = await validateAuthToken({
-      token: tokens.access_token,
+    if (!tokens.id_token) throw new Error("id_token_missing");
+    const claims = await validateOIDCIdToken({
+      idToken: tokens.id_token,
+      discovery,
       clientId,
-      clientSecret,
+      nonce: transaction.nonce,
     });
-    if (!validation.valid || !validation.user_id) {
-      throw new Error(validation.error ?? "invalid_access_token");
-    }
+    const identity = await namoid.hostedAuth.userInfo(tokens.access_token);
+    if (identity.sub !== claims.sub) throw new Error("userinfo_subject_mismatch");
 
     await regenerateSession(request);
     request.session.namoidAuth = {
       tokens,
-      userId: validation.user_id,
-      sessionId: validation.session_id,
+      userId: identity.sub,
+      sessionId: typeof claims.sid === "string" ? claims.sid : null,
       expiresAt: tokenExpiry(tokens),
     };
     await saveSession(request);
@@ -185,13 +190,22 @@ app.get("/api/private", asyncRoute(async (request, response) => {
 
 app.post("/api/auth/logout", requireSameOrigin, asyncRoute(async (request, response) => {
   const auth = request.session.namoidAuth;
+  let logoutUrl = appBaseUrl;
   if (auth) {
     try {
       const current = await refreshIfNeeded(auth);
-      await revokeNativeSession({
-        accessToken: current.tokens.access_token,
-        refreshToken: current.tokens.refresh_token,
+      const token = current.tokens.refresh_token ?? current.tokens.access_token;
+      await namoid.hostedAuth.revoke({
+        token,
+        tokenTypeHint: current.tokens.refresh_token ? "refresh_token" : "access_token",
+        clientSecret,
       });
+      if (current.tokens.id_token) {
+        logoutUrl = await namoid.hostedAuth.getLogoutUrl({
+          idTokenHint: current.tokens.id_token,
+          postLogoutRedirectUri: appBaseUrl,
+        });
+      }
     } catch (error) {
       console.error("NamoID revocation failed", safeError(error));
     }
@@ -203,21 +217,6 @@ app.post("/api/auth/logout", requireSameOrigin, asyncRoute(async (request, respo
     sameSite: "lax",
     secure: appBaseUrl.startsWith("https://"),
   });
-  let logoutUrl = appBaseUrl;
-  try {
-    const config = await getNamoIDAuthConfig({ clientId });
-    const hostedLogout = new URL("/sign-out", ensureTrailingSlash(config.hosted_auth_base_url));
-    hostedLogout.searchParams.set("return_to", appBaseUrl);
-    const signInUrl = config.hosted_auth_pages.sign_in;
-    if (signInUrl) {
-      for (const [key, value] of new URL(signInUrl).searchParams) {
-        hostedLogout.searchParams.set(key, value);
-      }
-    }
-    logoutUrl = hostedLogout.toString();
-  } catch (error) {
-    console.error("Hosted session cleanup could not be started", safeError(error));
-  }
   response.json({ logoutUrl });
 }));
 
@@ -245,17 +244,12 @@ async function authenticatedSession(request: Request) {
   try {
     const current = await refreshIfNeeded(auth);
     request.session.namoidAuth = current;
-    const validation = await validateAuthToken({
-      token: current.tokens.access_token,
-      clientId,
-      clientSecret,
-    });
-    if (!validation.valid || validation.user_id !== current.userId) {
+    const identity = await namoid.hostedAuth.userInfo(current.tokens.access_token);
+    if (identity.sub !== current.userId) {
       delete request.session.namoidAuth;
       await saveSession(request);
       return null;
     }
-    current.sessionId = validation.session_id;
     await saveSession(request);
     return current;
   } catch (error) {
@@ -271,16 +265,15 @@ async function refreshIfNeeded(auth: NonNullable<Request["session"]["namoidAuth"
   const refreshToken = auth.tokens.refresh_token;
   if (!refreshToken) throw new Error("refresh_token_missing");
 
-  const response = await fetch("https://api.namoid.in/v1/auth/refresh", {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({ refresh_token: refreshToken }),
+  const refreshed = await namoid.hostedAuth.refresh({
+    refreshToken,
+    clientSecret,
   });
-  if (!response.ok) throw new Error(`refresh_failed_${response.status}`);
-  const tokens = (await response.json()) as NamoIDTokenResponse;
+  const tokens: NamoIDTokenResponse = {
+    ...refreshed,
+    refresh_token: refreshed.refresh_token ?? refreshToken,
+    id_token: refreshed.id_token ?? auth.tokens.id_token,
+  };
   return {
     ...auth,
     tokens,
@@ -342,8 +335,4 @@ function safeError(error: unknown): string {
 
 function trimTrailingSlash(value: string): string {
   return value.replace(/\/+$/, "");
-}
-
-function ensureTrailingSlash(value: string): string {
-  return value.endsWith("/") ? value : `${value}/`;
 }

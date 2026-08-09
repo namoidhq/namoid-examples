@@ -1,29 +1,16 @@
-import { revokeNativeSession, type NamoIDTokenResponse } from "@namoidhq/js";
 import {
   completeHostedAuthRedirect,
   HostedAuthButton,
+  type CompletedHostedAuth,
   useAuthConfig,
   useNamoID,
 } from "@namoidhq/react";
 import { useEffect, useRef, useState } from "react";
 
-const TOKEN_STORAGE_KEY = "namoid_example_session";
-
-function readStoredSession(): NamoIDTokenResponse | null {
-  const raw = sessionStorage.getItem(TOKEN_STORAGE_KEY);
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw) as NamoIDTokenResponse;
-  } catch {
-    sessionStorage.removeItem(TOKEN_STORAGE_KEY);
-    return null;
-  }
-}
-
 export default function App() {
   const client = useNamoID();
   const { config, loading: configLoading, error: configError } = useAuthConfig();
-  const [tokens, setTokens] = useState<NamoIDTokenResponse | null>(readStoredSession);
+  const [auth, setAuth] = useState<CompletedHostedAuth | null>(null);
   const [callbackPending, setCallbackPending] = useState(
     () => new URL(window.location.href).searchParams.has("code"),
   );
@@ -36,8 +23,7 @@ export default function App() {
 
     void completeHostedAuthRedirect(client)
       .then((result) => {
-        sessionStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(result));
-        setTokens(result);
+        setAuth(result);
         window.history.replaceState({}, document.title, "/");
       })
       .catch((reason: unknown) => {
@@ -47,22 +33,30 @@ export default function App() {
   }, [callbackPending, client]);
 
   const signOut = async () => {
-    if (!tokens) return;
+    if (!auth) return;
     setError(null);
     try {
-      await revokeNativeSession({
-        accessToken: tokens.access_token,
-        refreshToken: tokens.refresh_token,
+      const token = auth.tokens.refresh_token ?? auth.tokens.access_token;
+      await client.hostedAuth.revoke({
+        token,
+        tokenTypeHint: auth.tokens.refresh_token ? "refresh_token" : "access_token",
       });
+      const idTokenHint = auth.tokens.id_token;
+      setAuth(null);
+      if (idTokenHint) {
+        window.location.assign(
+          await client.hostedAuth.getLogoutUrl({
+            idTokenHint,
+            postLogoutRedirectUri: window.location.origin,
+          }),
+        );
+      }
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Session revocation failed.");
-      return;
     }
-    sessionStorage.removeItem(TOKEN_STORAGE_KEY);
-    setTokens(null);
   };
 
-  const returnTo = `${window.location.origin}/auth/callback`;
+  const redirectUri = `${window.location.origin}/auth/callback`;
 
   return (
     <main className="shell">
@@ -82,22 +76,30 @@ export default function App() {
             <h2>Verifying the callback</h2>
             <p>The one-time code and stored PKCE transaction are being checked.</p>
           </>
-        ) : tokens ? (
+        ) : auth ? (
           <>
             <p className="status success">Authenticated</p>
             <h2>You are signed in</h2>
             <p>
-              The access token is held in this tab&apos;s session storage. Closing
-              the tab removes the local example session.
+              Tokens remain only in memory. Reloading or closing this tab removes
+              the local example session.
             </p>
             <dl>
               <div>
                 <dt>Token type</dt>
-                <dd>{tokens.token_type}</dd>
+                <dd>{auth.tokens.token_type}</dd>
               </div>
               <div>
                 <dt>Expires in</dt>
-                <dd>{tokens.expires_in ? `${tokens.expires_in} seconds` : "Not provided"}</dd>
+                <dd>
+                  {auth.tokens.expires_in
+                    ? `${auth.tokens.expires_in} seconds`
+                    : "Not provided"}
+                </dd>
+              </div>
+              <div>
+                <dt>Subject</dt>
+                <dd>{auth.identity.sub}</dd>
               </div>
             </dl>
             <button className="button secondary" type="button" onClick={() => void signOut()}>
@@ -118,8 +120,8 @@ export default function App() {
               NamoID handles the branded sign-in page and returns here with a
               one-time authorization code.
             </p>
-            <HostedAuthButton className="button" returnTo={returnTo}>
-              Sign in with NamoID
+            <HostedAuthButton className="button" redirectUri={redirectUri}>
+              Sign in
             </HostedAuthButton>
           </>
         )}
@@ -132,6 +134,7 @@ export default function App() {
       </section>
 
       <footer>
+        <span>Secured by NamoID</span>
         <span>Public Client</span>
         <span>Authorization Code + PKCE</span>
         <span>No Client Secret</span>

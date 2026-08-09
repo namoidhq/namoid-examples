@@ -12,9 +12,9 @@ data.
 
 - `/` — public landing page
 - `/api/auth/login` — creates a state-bound transaction and redirects to Hosted Auth
-- `/api/auth/callback` — exchanges the one-time code and creates an HttpOnly cookie
-- `/api/auth/logout` — revokes the native session and clears cookies
-- `/dashboard` — validates the access token before rendering authenticated data
+- `/api/auth/callback` — exchanges the code, validates the signed ID token, and creates HttpOnly cookies
+- `/api/auth/logout` — revokes the token grant, clears cookies, and ends the hosted session
+- `/dashboard` — loads UserInfo before rendering authenticated data
 
 ## Run locally
 
@@ -67,7 +67,7 @@ The Client Secret stays on the server. The Client ID selects the application
 and lets the SDK resolve the correct Hosted Auth domain automatically. Do not
 expose the Client Secret through a `NEXT_PUBLIC_*` variable.
 
-This example deliberately validates the access token instead of trusting a
-separate user ID cookie. In a production application, store the tokens in an
-encrypted or server-side session and apply the same validation boundary before
-accessing protected data.
+The callback validates issuer, state, PKCE, nonce, the signed ID token, and the
+UserInfo subject through the SDK. This compact example stores tokens in
+HttpOnly cookies. For production, prefer an encrypted cookie or durable
+server-side session and refresh access tokens before expiry.

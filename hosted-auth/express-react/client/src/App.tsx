@@ -141,14 +141,15 @@ export default function App() {
         ) : (
           <>
             <p className="status">Confidential web application</p>
-            <h2>Sign in through NamoID</h2>
+            <h2>Sign in</h2>
             <p>
               Express creates a state-bound PKCE transaction before redirecting
               you to the application&apos;s branded Hosted Auth page.
             </p>
             <button className="button" type="button" disabled={busy} onClick={() => void signIn()}>
-              {busy ? "Starting sign-in…" : "Continue with NamoID"}
+              {busy ? "Starting sign-in…" : "Continue"}
             </button>
+            <p className="status">Secured by NamoID</p>
           </>
         )}
 
