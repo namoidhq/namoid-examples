@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@namoidhq/js':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.2.0
+        version: 3.2.0
       express:
         specifier: ^4.21.0
         version: 4.22.2
@@ -474,8 +474,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@namoidhq/js@3.0.0':
-    resolution: {integrity: sha512-0r3YVTyrEKAwAYfVJQrOAd9qvZC/SXTlgP+7WHRdy/0Yw8zrMQRTqtYudrswU8UluRQwN8s+ceNHDeWLvgawHw==}
+  '@namoidhq/js@3.2.0':
+    resolution: {integrity: sha512-5cS90IcZkRhHC2+UFpV5wKWamo/YLuT+1QRz1KMm5ATtTm0k6gqAf9W3yeK7Ly6pfYGp19xydLMPs0W7/TX+Jw==}
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -1542,7 +1542,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@namoidhq/js@3.0.0':
+  '@namoidhq/js@3.2.0':
     dependencies:
       jose: 6.2.8
 
