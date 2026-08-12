@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getNamoID } from "../../../../lib/namoid";
+import { getAppBaseUrl, getNamoID } from "../../../../lib/namoid";
 
 export const GET = (request: Request) =>
   getNamoID().callback(request, {
@@ -26,7 +26,7 @@ export const GET = (request: Request) =>
       // created by Response.redirect() are immutable in some runtimes.
       return new Response(null, {
         status: 302,
-        headers: new Headers({ location: new URL("/dashboard", request.url).toString() }),
+        headers: new Headers({ location: new URL("/dashboard", getAppBaseUrl()).toString() }),
       });
     },
   });

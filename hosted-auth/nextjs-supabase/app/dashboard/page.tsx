@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { readNamoIDSession } from "../../lib/session";
 import { getSupabaseServerClient } from "../../lib/supabase";
@@ -56,7 +55,7 @@ export default async function Dashboard() {
       </pre>
 
       <p style={{ marginTop: 24 }}>
-        <Link href="/api/auth/logout">Sign out</Link>
+        <a href="/api/auth/logout">Sign out</a>
       </p>
     </main>
   );

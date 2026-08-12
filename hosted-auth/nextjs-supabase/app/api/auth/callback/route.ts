@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getNamoID } from "../../../../lib/namoid";
+import { getAppBaseUrl, getNamoID } from "../../../../lib/namoid";
 
 export const GET = (request: Request) =>
   getNamoID().callback(request, {
@@ -21,6 +21,6 @@ export const GET = (request: Request) =>
       if (tokens.id_token) {
         store.set("namoid_id_token", tokens.id_token, cookie);
       }
-      return Response.redirect(new URL("/dashboard", request.url));
+      return Response.redirect(new URL("/dashboard", getAppBaseUrl()));
     },
   });

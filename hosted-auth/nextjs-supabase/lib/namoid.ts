@@ -10,9 +10,13 @@ export function getNamoID() {
   return createNamoIDNextClient({
     clientId: required("NAMOID_CLIENT_ID"),
     clientSecret: required("NAMOID_CLIENT_SECRET"),
-    appBaseUrl: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3002",
+    appBaseUrl: getAppBaseUrl(),
     callbackPath: "/api/auth/callback",
     postLoginRedirectPath: "/dashboard",
     postLogoutRedirectPath: "/",
   });
+}
+
+export function getAppBaseUrl(): string {
+  return (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3002").replace(/\/$/, "");
 }

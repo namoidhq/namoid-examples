@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { readNamoIDSession } from "../../lib/session";
 
 export default async function Dashboard() {
@@ -15,11 +14,11 @@ export default async function Dashboard() {
       </pre>
       {session ? (
         <p style={{ marginTop: 24 }}>
-          <Link href="/api/auth/logout">Sign out</Link>
+          <a href="/api/auth/logout">Sign out</a>
         </p>
       ) : (
         <p style={{ marginTop: 24 }}>
-          <Link href="/api/auth/login">Sign in</Link>
+          <a href="/api/auth/login">Sign in</a>
         </p>
       )}
     </main>
