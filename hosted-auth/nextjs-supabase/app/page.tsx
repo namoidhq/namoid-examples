@@ -14,9 +14,11 @@ export default async function Home() {
         user-owned application data in Supabase.
       </p>
       <p>
-        <Link href={session ? "/dashboard" : "/api/auth/login"}>
-          {session ? "Open your profile →" : "Sign in →"}
-        </Link>
+        {session ? (
+          <Link href="/dashboard">Open your profile →</Link>
+        ) : (
+          <a href="/api/auth/login">Sign in →</a>
+        )}
       </p>
     </main>
   );
