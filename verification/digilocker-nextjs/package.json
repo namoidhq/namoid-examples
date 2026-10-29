@@ -1,0 +1,40 @@
+{
+  "name": "@namoid-examples/digilocker-car-rental",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "prepare:sdk": "node scripts/prepare-sdk.mjs",
+    "dev": "next dev --port 3010",
+    "build": "next build",
+    "start": "node scripts/start.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "test:flow": "node scripts/test-flow.mjs",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "@namoidhq/js": "3.3.0",
+    "@namoidhq/nextjs": "4.2.0",
+    "next": "16.4.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "6.0.3",
+    "@playwright/test": "1.62.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@namoidhq/js": "file:.sdk/namoidhq-js-3.3.0.tgz",
+      "@namoidhq/nextjs": "file:.sdk/namoidhq-nextjs-4.2.0.tgz"
+    }
+  },
+  "type": "module"
+}

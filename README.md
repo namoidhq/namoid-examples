@@ -42,6 +42,10 @@ bridge returns the authorization result, and a fresh full-page redirect is used
 when popups are blocked. State and PKCE protect both presentations, the Client
 ID is safe to expose, and no Client Secret is placed in frontend code.
 
+## Controlled preview: DigiLocker car rental
+
+[`verification/digilocker-nextjs`](./verification/digilocker-nextjs) is a complete fictional car-rental journey: sign in, select a car and dates, share issued driving-licence details, and inspect the rental-review summary. It includes a credential-free synthetic demo and a real SDK integration for explicitly approved Test applications. Rental approval and payments are outside this example. See its README for preview SDK setup and feature-access requirements.
+
 ## Run with Docker
 
 Each example has a production multi-stage Docker image. Copy the root
